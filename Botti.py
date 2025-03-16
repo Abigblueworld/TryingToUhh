@@ -163,3 +163,14 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
             else:
               print("Botti: " + Leaving[Number2] + Exclaim[Last])
             break
+
+#And so at last my brain is finally a piece of fried meat
+def fastapi_app():
+    bot = EchoBot()
+    app = fp.make_app(
+        bot,
+        access_key=bot_access_key,
+        bot_name=bot_name,
+        allow_without_key=not (UGnxh9XbRNNChOnv2SmPeG7ybA3NT1J6 and Botti),
+    )
+    return app
