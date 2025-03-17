@@ -1,6 +1,8 @@
 #My head hurts from literally trying to do this lol
 #Botti has been updated to seen more up to date!
 import random
+#Actually adding datetime (Not time, because that went insane lol) so Botti doesn't start asking like okay yeah.
+from datetime import datetime
 #Time is for what section of the bot you're on: 0 = start, 1 = chatting.
 Time = 0
 Talkon = ""
@@ -12,12 +14,14 @@ print ("_____________________________________________________________")
 Chia = ("Hi, ", "Hello, ", "Hey, ", "Greetings, ")
 Chia2 = ("I'm Botti", "my name is Botti", "I am Botti", "the name's Botti", "call me Botti")
 Basic1 = ("So, ", "Alright, ", "Let me see, ", "Ok, ", "Hmm, ")
-Aboutname = ("what's your name? ", "what is your name? ", "your name is? ")
+Aboutname = ("what's your nickname? ", "what is your nickname? ", "your nickname is? ")
 Responses = ("Cool", "Nice", "Alright", "Yeah", "Okay", "Ok", "lol")
 GettingStart = (" is your day? ", " are you? ", " is everything? ", "'s life doing? ", "'s everything doing? ")
 Waitings = ("Hello? ", "Hey? ", "Please tell me, ", "Answer, ", "I said ", "Can you tell me ")
 #How Botti reacts to messages randomly
 Exclaim = ["! ", ". ","... ", "?", ""]
+#The time is blah blah blah :D
+Clocks = ["Today is ", "It's ", "Today, it's ", "Well, it's "]
 #If you ask "what" when it says something nonsensical.
 Confused = ["I don't know", "Don't know", "Whatever", "Forget it"]
 #So, now it doesn't understand. attempt to fit the "nonsense" issue.
@@ -29,7 +33,9 @@ Saynothingto = ["Ok", "ok", "Alright", "alright", "Sure", "sure", "Yeah", "yeah"
 #In other words related to the nothingto list.
 Morewords = ["I got you", "I see", "I understand", "Settled", "Uh-huh", "What do you mean"]
 #One more dish to make sense, these are questions Botti askes you
-Pile = ["Do you like me", "How are you", "Do you enjoy life?", "What time is it for you?", "Are you hungry?", "Are you thristy?"]
+Pile = ["Do you like me", "How are you", "Do you enjoy life", "Did you just get up", "Are you hungry", "Are you thristy"]
+#Trying to get settled
+Appreciated = ["You're welcome", "Your welcome", "You are welcome", "You're most welcome"]
 #General reponses to feelings 
 ThoughtsGen = ["Good", "Great", "Bad", "Not good", "Boring", "Bland", "Awesome", "Fantastic"]
 OCRs = ["Because", "Just Kidding", "Why not", "gotcha!"]
@@ -41,8 +47,10 @@ Accepting = ["It's ok", "It's fine", "Apology accepted", "Sorry for what", "What
 Knowsanswer = ["Yes, ", "Yeah, ", "You are "]
 #if you like the bot
 Gradu = ["Thanks", "Thank you", "Thank you very much", "Thank you so much", "That's nice"]
-#Banned words.
-Bannedword = ["+", "-", "X", "/", "plus", "minus", "the time", "the weather"]
+#If you greet the bot or say its name.
+Greetsaa = ["Yeah", "Yes", "Hey", "Hi", "What's up"]
+#Banned words. I don't know why these do not work?
+Bannedword = [" + ", " - ", " x ", " / ", " plus ", " minus ", " = "]
 #If you say nothing, Botti will give warnings before leaving
 Nothinge = ["Hello?", "You there?", "Are we going to talk?", "No blank messages.", "Stop it."]
 #And so the bot KNOWS when to say goodbye
@@ -64,10 +72,10 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
      if (Time == 0):
           Number4 = random.randrange(0,3)
           Question = input( Basic1[Number3] + Aboutname[Number4])
-          if ( Question == ""):
+          if (" " in Question or Question == ""):
               inpa = random.randrange(0,6)
               Question = input(Waitings[inpa]+ Aboutname[Number4])
-              if (not Question == ""):
+              if (" " not in Question and not Question == ""):
                  Time = 1
           else:
                Time = 1
@@ -89,6 +97,7 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
              Number2 = random.randrange(0,6)
              Number = random.randrange(0,4)
              Think = random.randrange(0, 7)
+             Sothis = random.randrange(0, 1)
              Ohno = random.randrange(0, 5)
              Case = random.randrange(3, 5)
              Biggere = random.randrange(0, 4)
@@ -103,15 +112,19 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
                  print("Botti: " + Confused[Respondi] + Exclaim[Honey])
                  Leave = 0
                  Talkon = input("You: ")
+             elif ("What's the date" in Talkon or "today" in Talkon or "Today" in Talkon or "the date" in Talkon):
+                 Okay = str(datetime.now())
+                 print("Botti: " + Clocks[Honey] + Okay + Exclaim[Honey])
+                 Leave = 0
+                 Talkon = input("You: ")
              elif (Talkon in Saynothingto):
                  print ("Botti: " + Responses[Honey] + Exclaim[Respondi])
                  Leave = 0
                  Talkon = input("You: ")
-             elif ("How's" in Talkon or "How is" in Talkon or "What about " in Talkon or "what about" in Talkon):
+             elif ("How's" in Talkon or "How is" in Talkon or "What about " in Talkon or "what about" in Talkon or "How are you" in Talkon):
                  print("Botti:" + ThoughtsGen[Think] + Exclaim[Honey])
                  Leave = 0
                  Talkon = input("You: ")
-                 
              elif ("you like" in Talkon or "you love" in Talkon):
                  print("Botti:" + Truesy[Respondi] + Exclaim[Honey])
                  Leave = 0
@@ -124,24 +137,37 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
                 print ("Botti:" + Accepting[Ohno] + Exclaim[Case])
                 Leave = 0
                 Talkon = input("You: ")
-             elif ("my name?" in Talkon or "my name" in Talkon):
-                print ("Botti: " + Knowsanswer[Honey] + Question + Exclaim[Case])
-                Leave = 0
-                Talkon = input("You: ")
+             elif ("my name?" in Talkon or "my name" in Talkon or "know my name" in Talkon or "Botti" in Talkon):
+                 if ("Botti" not in Talkon):
+                   print ("Botti: " + Knowsanswer[Honey] + Question + Exclaim[Case])
+                 else:
+                   print ("Botti: " + Greetsaa[Honey] + ", " + Question + "?")
+                 Leave = 0
+                 Talkon = input("You: ")
              elif ("I like you" in Talkon or "I love you" in Talkon):
                  print("Botti: " + Gradu[Ohno] + Exclaim[Honey])
                  Leave = 0
+                 Talkon = input("You: ")
+             #My bad, the Bannedwords go with the elifs
+             elif (Talkon in Bannedword):
+                 Leave = 0
+                 print ("Botti:" + Resban[Ohno] + Exclaim[Honey])
                  Talkon = input("You: ")
              elif ("No you don't" in Talkon or "no you don't" in Talkon or "No u don't" in Talkon):
                  print("Botti: " + IsToo[Respondi] + Exclaim[Something])
                  Leave = 0
                  Talkon = input("You: ")
-             elif ("Thank you" in Talkon or "thank you" in Talkon):
+             elif ("Thank you" in Talkon or "thank you" in Talkon or "Thank u" in Talkon):
                  print("Botti: You're welcome")
                  Talkon = input("You: ")
-             elif (Talkon in Bannedword):
+             elif ("Hey" in Talkon or "Hello" in Talkon or "Hi" in Talkon):
+                 print("Botti: " + Greetsaa[Ohno] + "?")
                  Leave = 0
-                 print ("Botti:" + Resban[Ohno] + Exclaim[Honey])
+                 Talkon = input("You: ")
+             elif ("eat" in Talkon or "drink" in Talkon):
+                 print("Botti: Whatever there is" + Exclaim[Ohno])
+                 Leave = 0
+                 Talkon = input("You: ")
              else:
                 Goofycode = random.randrange(1, 4)
                 if (Goofycode == 3 or Goofycode == 4):
@@ -151,7 +177,7 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
                   print ("Botti: " + Pile[Number2] + "?" )
                   Leave = 0
                 else:
-                  print ("Botti: " + Veryconfused[Think] + Exclaim[Biggere])
+                  print ("Botti: " + Veryconfused[Case] + Exclaim[Biggere])
                   Leave = 0
                 Talkon = input("You: ")
 
@@ -163,6 +189,7 @@ while "Bye" not in Talkon or "Goodbye" not in Talkon:
             else:
               print("Botti: " + Leaving[Number2] + Exclaim[Last])
             break
+
 
 #And so at last my brain is finally a piece of fried meat
 def fastapi_app():
